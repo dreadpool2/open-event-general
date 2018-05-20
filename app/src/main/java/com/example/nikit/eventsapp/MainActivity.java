@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
         TOKEN="JWT "+TOKEN;
         Log.d("harsimarSingh",TOKEN);
 
+        getSupportActionBar().setTitle("Events");
+
         eventList = new ArrayList<>();
         recyclerView = findViewById(R.id.events_recycler);
         setUpRecycler();

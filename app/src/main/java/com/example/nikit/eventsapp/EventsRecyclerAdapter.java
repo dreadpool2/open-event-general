@@ -22,12 +22,14 @@ public class EventsRecyclerAdapter extends RecyclerView.Adapter<EventsRecyclerAd
 
     public static class EventViewHolder extends RecyclerView.ViewHolder {
         CardView cv;
-        TextView eventNameTv;
+        TextView eventNameTv,eventStartsAt;
 
         EventViewHolder(View itemView) {
             super(itemView);
             cv = (CardView)itemView.findViewById(R.id.all_events_card);
             eventNameTv = (TextView)itemView.findViewById(R.id.all_events_card_event_name);
+            eventStartsAt = (TextView)itemView.findViewById(R.id.all_events_card_starts_at);
+
         }
     }
     List<Event> events;
@@ -49,8 +51,11 @@ public class EventsRecyclerAdapter extends RecyclerView.Adapter<EventsRecyclerAd
 
     @Override
     public void onBindViewHolder(@NonNull EventsRecyclerAdapter.EventViewHolder holder, int position) {
+        String startAt=events.get(position).getAttributes().getStartsAt();
 
         holder.eventNameTv.setText(events.get(position).getAttributes().getName());
+        holder.eventStartsAt.setText(startAt.substring(0,9));
+
         Log.d("harsimarSingh","Setting "+events.get(position).getAttributes().getOrganizerDescription());
     }
 

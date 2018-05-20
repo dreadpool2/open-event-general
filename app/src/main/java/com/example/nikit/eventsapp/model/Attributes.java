@@ -13,6 +13,11 @@ public class Attributes {
     private String name;
     @SerializedName("organizer-description")
     private String organizerDescription;
+    @SerializedName("starts-at")
+    private String startsAt;
+    public String getStartsAt() {
+        return startsAt;
+    }
 
     public String getIdentifier() {
         return identifier;
