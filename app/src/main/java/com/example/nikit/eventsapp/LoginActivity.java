@@ -86,8 +86,7 @@ Login login=new Login(title.trim(),body.trim()) ;
 //
 //            }
 //        });
-        ApiInterface apiService =
-                ApiClient.getClient().create(ApiInterface.class);
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
         Call<LoginResponse> call = apiService.login(login);
         call.enqueue(new Callback<LoginResponse>() {
