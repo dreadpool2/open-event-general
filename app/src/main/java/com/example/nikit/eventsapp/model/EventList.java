@@ -10,7 +10,10 @@ import java.util.List;
 
 public class EventList {
 
-    @SerializedName("event")
+    @SerializedName("data")
     private List<Event> eventList;
 
+    public List<Event> getEventList() {
+        return eventList;
+    }
 }

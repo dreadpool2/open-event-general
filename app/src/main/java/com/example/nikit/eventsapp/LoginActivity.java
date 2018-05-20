@@ -36,8 +36,8 @@ public class LoginActivity extends AppCompatActivity {
 b.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
-        sendPost(ei.getText().toString(),e2.getText().toString());
-
+        //sendPost(ei.getText().toString(),e2.getText().toString());
+        sendPost("hey@hey.hey","heyheyhey");
     }
 });
         /*ApiInterface apiService =
