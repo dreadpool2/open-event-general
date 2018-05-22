@@ -4,6 +4,7 @@ package com.example.nikit.eventsapp;
  * Created by harsimar on 20/05/18.
  */
 
+import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
@@ -11,6 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +30,8 @@ import java.util.List;
 import java.util.Locale;
 
 public class EventsRecyclerAdapter extends RecyclerView.Adapter<EventsRecyclerAdapter.EventViewHolder> {
+    private int lastPosition = -1;
+    private Context context;
 
     public static class EventViewHolder extends RecyclerView.ViewHolder {
         CardView cv;
@@ -46,7 +51,8 @@ public class EventsRecyclerAdapter extends RecyclerView.Adapter<EventsRecyclerAd
     }
     List<Event> events;
 
-    EventsRecyclerAdapter (){
+    EventsRecyclerAdapter (Context context){
+        this.context = context;
         events = new ArrayList<>();
     }
     public void addAll(List<Event> eventList){
@@ -63,6 +69,8 @@ public class EventsRecyclerAdapter extends RecyclerView.Adapter<EventsRecyclerAd
 
     @Override
     public void onBindViewHolder(@NonNull EventsRecyclerAdapter.EventViewHolder holder, int position) {
+
+        holder.itemView.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.slidein));
 
         Attributes attributes = events.get(position).getAttributes();
         holder.eventNameTv.setText(attributes.getName());
@@ -81,6 +89,7 @@ public class EventsRecyclerAdapter extends RecyclerView.Adapter<EventsRecyclerAd
                     .placeholder(R.drawable.ic_launcher_background)
                     .into(holder.eventImage);
         }
+
 
     }
 

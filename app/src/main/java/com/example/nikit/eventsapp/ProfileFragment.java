@@ -100,7 +100,7 @@ public class ProfileFragment extends Fragment {
                     firstNameTv.setText(userAttrib.getFirstName());
                     emailTv.setText(userAttrib.getEmail());
                         Picasso.with(view.getContext())
-                                .load(Uri.parse(userAttrib.getAvatarUrl()))
+                                .load(userAttrib.getAvatarUrl())
                                 .placeholder(R.drawable.ic_person_black_24dp)
                                 .transform(new CircleTransform())
                                 .into(avatarImageView);
