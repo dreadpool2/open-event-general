@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
 
 import com.example.nikit.eventsapp.model.Event;
@@ -21,7 +20,6 @@ import com.example.nikit.eventsapp.rest.ApiInterface;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.wasabeef.recyclerview.animators.SlideInDownAnimator;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,7 +28,7 @@ import retrofit2.Response;
 
 public class EventsFragment extends Fragment {
 
-    private static final String app="application/vnd.api+json";
+    private static final String app = "application/vnd.api+json";
     private List<Event> eventList;
     private RecyclerView recyclerView;
     private EventsRecyclerAdapter eventsRecyclerAdapter;
@@ -38,12 +36,8 @@ public class EventsFragment extends Fragment {
     private LinearLayoutManager linearLayoutManager;
     private String TOKEN = null;
 
-
-
-    public EventsFragment(){
-
+    public EventsFragment() {
     }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -58,7 +52,7 @@ public class EventsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_events, container, false);
 
-        progressBar= view.findViewById(R.id.progressHeader);
+        progressBar = view.findViewById(R.id.progressHeader);
         progressBar.setIndeterminate(true);
 
         eventList = new ArrayList<>();
@@ -71,13 +65,14 @@ public class EventsFragment extends Fragment {
         recyclerView.setAdapter(eventsRecyclerAdapter);
         recyclerView.setNestedScrollingEnabled(false);
 
+
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<EventList> call = apiService.getEvents2(app,TOKEN);
+        Call<EventList> call = apiService.getEvents2(app, TOKEN);
         call.enqueue(new Callback<EventList>() {
             @Override
             public void onResponse(Call<EventList> call, Response<EventList> response) {
-                if(response.isSuccessful()){
-                    Log.d("harsimarSingh","Response Success ");
+                if (response.isSuccessful()) {
+                    Log.d("harsimarSingh", "Response Success ");
                     eventList.addAll(response.body().getEventList());
                     eventsRecyclerAdapter.addAll(eventList);
 
@@ -85,44 +80,39 @@ public class EventsFragment extends Fragment {
                     addAnim();
                     notifyItems();
 
-                    Log.d("harsimarSingh","Fetched Events "+eventList.size());
-                }else {
-                    Log.d("harsimarSingh","Not Successful "+response.code());
+                    Log.d("harsimarSingh", "Fetched Events " + eventList.size());
+                } else {
+                    Log.d("harsimarSingh", "Not Successful " + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<EventList> call, Throwable t) {
-                Log.d("harsimarSingh","Failure "+t.toString());
+                Log.d("harsimarSingh", "Failure " + t.toString());
             }
         });
-
-
         return view;
     }
 
-    public void notifyItems(){
+    public void notifyItems() {
         int firstVisible = linearLayoutManager.findFirstVisibleItemPosition();
         int lastVisible = linearLayoutManager.findLastVisibleItemPosition();
 
         int itemsChanged = lastVisible - firstVisible + 1; // + 1 because we start count items from 0
-        int start = firstVisible - itemsChanged> 0 ? firstVisible - itemsChanged: 0;
+        int start = firstVisible - itemsChanged > 0 ? firstVisible - itemsChanged : 0;
 
-        eventsRecyclerAdapter.notifyItemRangeChanged(start, itemsChanged+itemsChanged);
+        eventsRecyclerAdapter.notifyItemRangeChanged(start, itemsChanged + itemsChanged);
     }
 
-    public void addAnim(){
+    public void addAnim() {
         //item animator
         SlideInUpAnimator slideup = new SlideInUpAnimator();
         slideup.setAddDuration(500);
         recyclerView.setItemAnimator(slideup);
     }
 
-    public void progressBarHandle(){
+    public void progressBarHandle() {
         progressBar.setIndeterminate(false);
         progressBar.setVisibility(View.GONE);
     }
-
-
 }
-
