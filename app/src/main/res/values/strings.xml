@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">open-event-general</string>
+    <string name="Events">Events</string>
+    <string name="Title1">Title1</string>
+    <string name="Title2">Title2</string>
+    <string name="Profile">Profile</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--event details-->
+    <string name="event_card_date">Event Date :</string>
+
 </resources>
