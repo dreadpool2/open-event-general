@@ -99,12 +99,12 @@ public class ProfileFragment extends Fragment {
                     AttributesUser userAttrib = response.body().getUser().getAttributes();
                     firstNameTv.setText(userAttrib.getFirstName());
                     emailTv.setText(userAttrib.getEmail());
-                        Picasso.with(view.getContext())
-                                .load(Uri.parse(userAttrib.getAvatarUrl()))
-                                .placeholder(R.drawable.ic_person_black_24dp)
-                                .transform(new CircleTransform())
-                                .into(avatarImageView);
 
+                    Picasso.with(view.getContext())
+                            .load(userAttrib.getAvatarUrl())
+                            .placeholder(R.drawable.ic_person_black_24dp)
+                            .transform(new CircleTransform())
+                            .into(avatarImageView);
                 }else {
                     Log.d("harsimarSingh","Not Successful "+response.code());
                 }
@@ -119,6 +119,4 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-
 }
-

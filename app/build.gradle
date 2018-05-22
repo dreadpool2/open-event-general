@@ -25,6 +25,7 @@ dependencies {
     implementation 'com.android.support:support-v4:27.1.1'
     compile 'com.android.support:cardview-v7:27.1.+'
     implementation 'com.android.support:design:27.1.+'
+    compile 'jp.wasabeef:recyclerview-animators:2.3.0'
 
     // retrofit, gson
     compile 'com.google.code.gson:gson:2.8.2'
