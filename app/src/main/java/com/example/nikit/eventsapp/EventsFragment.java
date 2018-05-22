@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.ProgressBar;
 
 import com.example.nikit.eventsapp.model.Event;
@@ -20,6 +21,8 @@ import com.example.nikit.eventsapp.rest.ApiInterface;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.wasabeef.recyclerview.animators.SlideInDownAnimator;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,6 +35,7 @@ public class EventsFragment extends Fragment {
     private RecyclerView recyclerView;
     private EventsRecyclerAdapter eventsRecyclerAdapter;
     private ProgressBar progressBar;
+    private LinearLayoutManager linearLayoutManager;
     private String TOKEN = null;
 
 
@@ -59,14 +63,13 @@ public class EventsFragment extends Fragment {
 
         eventList = new ArrayList<>();
         recyclerView = view.findViewById(R.id.events_recycler);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        eventsRecyclerAdapter = new EventsRecyclerAdapter();
+        eventsRecyclerAdapter = new EventsRecyclerAdapter(getContext());
         recyclerView.setAdapter(eventsRecyclerAdapter);
         recyclerView.setNestedScrollingEnabled(false);
-
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<EventList> call = apiService.getEvents2(app,TOKEN);
@@ -78,10 +81,10 @@ public class EventsFragment extends Fragment {
                     eventList.addAll(response.body().getEventList());
                     eventsRecyclerAdapter.addAll(eventList);
 
-                    progressBar.setIndeterminate(false);
-                    progressBar.setVisibility(View.GONE);
+                    progressBarHandle();
+                    addAnim();
+                    notifyItems();
 
-                    eventsRecyclerAdapter.notifyDataSetChanged();
                     Log.d("harsimarSingh","Fetched Events "+eventList.size());
                 }else {
                     Log.d("harsimarSingh","Not Successful "+response.code());
@@ -94,7 +97,30 @@ public class EventsFragment extends Fragment {
             }
         });
 
+
         return view;
+    }
+
+    public void notifyItems(){
+        int firstVisible = linearLayoutManager.findFirstVisibleItemPosition();
+        int lastVisible = linearLayoutManager.findLastVisibleItemPosition();
+
+        int itemsChanged = lastVisible - firstVisible + 1; // + 1 because we start count items from 0
+        int start = firstVisible - itemsChanged> 0 ? firstVisible - itemsChanged: 0;
+
+        eventsRecyclerAdapter.notifyItemRangeChanged(start, itemsChanged+itemsChanged);
+    }
+
+    public void addAnim(){
+        //item animator
+        SlideInUpAnimator slideup = new SlideInUpAnimator();
+        slideup.setAddDuration(500);
+        recyclerView.setItemAnimator(slideup);
+    }
+
+    public void progressBarHandle(){
+        progressBar.setIndeterminate(false);
+        progressBar.setVisibility(View.GONE);
     }
 
 

@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +39,7 @@ public class ProfileFragment extends Fragment {
     private TextView firstNameTv;
     private TextView emailTv;
     private ImageView avatarImageView;
-    private Button logout;
+    private CardView logout;
     private ProgressBar progressBar;
 
 
@@ -98,12 +99,12 @@ public class ProfileFragment extends Fragment {
                     AttributesUser userAttrib = response.body().getUser().getAttributes();
                     firstNameTv.setText(userAttrib.getFirstName());
                     emailTv.setText(userAttrib.getEmail());
-                    if(userAttrib.getAvatarUrl() != null) {
                         Picasso.with(view.getContext())
-                                .load(Uri.parse(userAttrib.getAvatarUrl()))
-                                .placeholder(R.drawable.ic_launcher_background)
+                                .load(userAttrib.getAvatarUrl())
+                                .placeholder(R.drawable.ic_person_black_24dp)
+                                .transform(new CircleTransform())
                                 .into(avatarImageView);
-                    }
+
                 }else {
                     Log.d("harsimarSingh","Not Successful "+response.code());
                 }
