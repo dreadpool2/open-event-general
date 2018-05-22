@@ -30,7 +30,6 @@ import java.util.List;
 import java.util.Locale;
 
 public class EventsRecyclerAdapter extends RecyclerView.Adapter<EventsRecyclerAdapter.EventViewHolder> {
-    private int lastPosition = -1;
     private Context context;
 
     public static class EventViewHolder extends RecyclerView.ViewHolder {
@@ -49,12 +48,14 @@ public class EventsRecyclerAdapter extends RecyclerView.Adapter<EventsRecyclerAd
             desciption = (TextView)itemView.findViewById(R.id.description);
         }
     }
+
     List<Event> events;
 
     EventsRecyclerAdapter (Context context){
         this.context = context;
         events = new ArrayList<>();
     }
+
     public void addAll(List<Event> eventList){
         this.events.addAll(eventList);
     }
@@ -69,8 +70,6 @@ public class EventsRecyclerAdapter extends RecyclerView.Adapter<EventsRecyclerAd
 
     @Override
     public void onBindViewHolder(@NonNull EventsRecyclerAdapter.EventViewHolder holder, int position) {
-
-        holder.itemView.startAnimation(AnimationUtils.loadAnimation(holder.itemView.getContext(), R.anim.slidein));
 
         Attributes attributes = events.get(position).getAttributes();
         holder.eventNameTv.setText(attributes.getName());
