@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/eventsApp.iml" filepath="$PROJECT_DIR$/eventsApp.iml" />
       <module fileurl="file://$PROJECT_DIR$/open-event-general.iml" filepath="$PROJECT_DIR$/open-event-general.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/open-event-general-boom.iml" filepath="$PROJECT_DIR$/.idea/open-event-general-boom.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/open-event-general23.iml" filepath="$PROJECT_DIR$/.idea/open-event-general23.iml" />
     </modules>
   </component>
